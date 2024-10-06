@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
+use App\Models\Ticket_Type;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,11 +30,12 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
+        
 
         if (auth()->guard('web')->attempt(['email' => $request->email, 'password' => $request->password], true)) {
             return redirect()->route('user.home');
         } else {
-            return redirect()->route('user.login.view')->with('error', 'The Email and Password do not match our records, check and try again');
+            return redirect()->route('login')->with('error', 'The Email and Password do not match our records, check and try again');
         }
     }
 
@@ -45,7 +48,12 @@ class AuthController extends Controller
 
     public function dashboard()
     {
-        return view('/pages/user/dashboard', compact('events'));
+
+        $countUsers = User::count();
+        $countTickets = Ticket::count();
+        $countTypeTickets = Ticket_Type::count();
+
+        return view('/dashboard/index')->with('countUsers', $countUsers)->with('countTickets', $countTickets)->with('countTypeTickets', $countTypeTickets);
     }
 
     public function register(Request $request)

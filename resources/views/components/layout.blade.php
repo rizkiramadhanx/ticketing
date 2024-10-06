@@ -924,87 +924,43 @@
                 </a>
                 <!--begin::Menu-->
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                  <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
                       <i class="ki-outline ki-element-11 fs-2"></i>
                     </span>
-                    <span class="menu-title">Daily</span>
-                    <span class="menu-arrow"></span>
-                  </span>
-                  <!--end:Menu link-->
-                  <!--begin:Menu sub-->
-                  <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                      <!--begin:Menu link-->
-                      <a class="menu-link" href="{{ route('user.attendance.view') }}">
-                        <span class="menu-bullet">
-                          <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">Absensi</span>
-                      </a>
-                      <!--end:Menu link-->
-                    </div>
-                    <div class="menu-item">
-                      <!--begin:Menu link-->
-                      <a class="menu-link" href="{{ route('user.dashboard.daily_history') }}">
-                        <span class="menu-bullet">
-                          <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">History</span>
-                      </a>
-                      <!--end:Menu link-->
-                    </div>
-                  </div>
-                  <!--end:Menu sub-->
-                </div>
-                @if(auth()->user()->role == 'admin')
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                  <span class="menu-link">
-                    <span class="menu-icon">
-                      <i class="ki-outline ki-element-11 fs-2"></i>
-                    </span>
-                    <span class="menu-title">Admin</span>
+                    <span class="menu-title">Menu</span>
                     <span class="menu-arrow"></span>
                   </span>
                   <div class="menu-sub menu-sub-accordion">
                     <!--begin:Menu item-->
                     <div class="menu-item">
                       <!--begin:Menu link-->
-                      <a class="menu-link" href="{{ route('admin.dashboard.event.index') }}">
+                      <a class="menu-link">
                         <span class="menu-bullet">
                           <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">Event</span>
-                      </a>
-                      <!--end:Menu link-->
-                    </div>
-                    <div class="menu-item">
-                      <!--begin:Menu link-->
-                      <a class="menu-link" href="{{ route('admin.dashboard.division.index') }}">
-
-                        <span class="menu-bullet">
-                          <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">Division</span>
-                      </a>
-                      <!--end:Menu link-->
-                    </div>
-                    <div class="menu-item">
-                      <!--begin:Menu link-->
-                      <a class="menu-link" href="{{ route('admin.dashboard.user.index') }}">
-
-                        <span class="menu-bullet">
-                          <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">Users</span>
+                        <span class="menu-title">Tipe Tiket</span>
                       </a>
                       <!--end:Menu link-->
                     </div>
                   </div>
+                  @if(auth()->user()->role == 'admin')
+                  <div class="menu-sub menu-sub-accordion">
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                      <!--begin:Menu link-->
+                      <a class="menu-link">
+                        <span class="menu-bullet">
+                          <span class="bullet bullet-dot"></span>
+                        </span>
+                        <span class="menu-title">Tipe Tiket</span>
+                      </a>
+                      <!--end:Menu link-->
+                    </div>
+                  </div>
+                  @endif
                 </div>
-                @endif
+
                 <!--end::Menu-->
               </div>
             </div>

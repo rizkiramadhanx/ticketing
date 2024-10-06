@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ticket;
+use App\Models\Ticket_Type;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
@@ -11,7 +13,9 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        $tickets = Ticket::all();
+
+        return view('dashboard/ticket/index')->with('tickets', $tickets);
     }
 
     /**
@@ -19,7 +23,9 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        $ticket_types = Ticket_Type::all();
+
+        return view('dashboard/ticket/create')->with('ticket_types', $ticket_types);
     }
 
     /**
@@ -27,7 +33,23 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'note' => 'required',
+            'ticket_type_id' => 'required',
+            'address' => 'required',
+        ]);
+
+        $ticket = Ticket::create([
+            'name' => $request->name,
+            'note' => $request->note,
+            'ticket_type_id' => $request->ticket_type_id,
+            'address' => $request->address,
+        ]);
+
+        if ($ticket) {
+            return redirect()->route('ticket.index')->with('success', 'Ticket created successfully');
+        }
     }
 
     /**
