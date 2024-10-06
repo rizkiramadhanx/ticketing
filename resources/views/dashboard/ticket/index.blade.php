@@ -42,8 +42,48 @@
                 <td>{{ $ticket->name }}</td>
                 <td>{{ $ticket->address }}</td>
                 <td>{{ $ticket->note }}</td>
-                <td></td>
-                <td></td>
+                <td> {{ $ticket->status }}</td>
+                <td>
+                  <a href="{{ route('ticket.edit', $ticket->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                  @if (Auth::user()->role == 'admin')
+                  <button type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users" class="btn btn-sm btn-danger btn-active-danger-primary">Delete</button>
+                  @endif
+                  <div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
+                    <!--begin::Modal dialog-->
+                    <div class="modal-dialog modal-dialog-centered">
+                      <!--begin::Modal content-->
+                      <div class="modal-content">
+                        <!--begin::Modal header-->
+
+                        <!--begin::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body mt-10 mx-5 mx-xl-18 pt-0 pb-15">
+                          <!--begin::Heading-->
+                          <div class="text-center mb-13">
+                            <!--begin::Title-->
+                            <h1 style="font-size: x-large;" text>Are you sure?</h1>
+                            <!--end::Title-->
+                          </div>
+
+                          <div class="d-flex flex-center gap-3">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+                            <!-- button confirm -->
+                            <form action="{{ route('ticket.destroy', $ticket->id) }}" method="POST">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                          </div>
+                          <!--end::Heading-->
+                          <!--begin::Actions-->
+                          <!--end::Modal body-->
+                        </div>
+                        <!--end::Modal content-->
+                      </div>
+                      <!--end::Modal dialog-->
+                    </div>
+                  </div>
+                </td>
               </tr>
               @endforeach
             </tbody>

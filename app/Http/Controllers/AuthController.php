@@ -43,7 +43,7 @@ class AuthController extends Controller
     {
         auth()->guard('web')->logout();
 
-        redirect()->route('user.login.view');
+        redirect()->route('login');
     }
 
     public function dashboard()
@@ -74,7 +74,7 @@ class AuthController extends Controller
 
 
         if ($user) {
-            return redirect()->route('user.login.view')->with('success', 'You have successfully registered. Please login to continue');
+            return redirect()->route('login')->with('success', 'You have successfully registered. Please login to continue');
         }
     }
 }

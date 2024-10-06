@@ -2,7 +2,7 @@
   <div>
     <div class="row justify-content-center">
       <div class="col d-flex justify-content-start">
-        <h1 style="font-size: 24px;font-weight: 600;">Create New Ticket</h1>
+        <h1 style="font-size: 24px;font-weight: 600;">Edit Ticket</h1>
       </div>
     </div>
     @if (session('success'))
@@ -16,14 +16,14 @@
     </div>
     @endif
     <form
-      action="{{ route('ticket.store') }}" method="POST" enctype="multipart/form-data">
+      action="{{ route('ticket.update', $ticket->id) }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="row">
         <div class="col-12 row col-md-6">
           <label class="col-12 col-form-label fw-semibold">Nama Tiket</label>
           <!--begin::Col-->
           <div class="col-12 fv-row">
-            <input type="text" name="name" class="form-control form-control-lg" value="{{ old('name') }}" />
+            <input type="text" name="name" class="form-control form-control-lg" value="{{ old('name', $ticket->name) }}" />
           </div>
           <span class="text-danger">{{ $errors->first('name') }}</span>
         </div>
@@ -31,7 +31,7 @@
           <label class="col-12 col-form-label fw-semibold">Alamat</label>
           <!--begin::Col-->
           <div class="col-12 fv-row">
-            <input type="text" name="address" class="form-control form-control-lg" value="{{ old('address') }}" />
+            <input type="text" name="address" class="form-control form-control-lg" value="{{ old('address', $ticket->address) }}" />
           </div>
           <span class="text-danger">{{ $errors->first('address') }}</span>
         </div>
@@ -42,7 +42,7 @@
           <label class="col-12 col-form-label fw-semibold">Catatan</label>
           <!--begin::Col-->
           <div class="col-12 fv-row">
-            <input type="text" name="note" class="form-control form-control-lg" value="{{ old('note') }}" />
+            <input type="text" name="note" class="form-control form-control-lg" value="{{ old('note', $ticket->note) }}" />
           </div>
           <span class="text-danger">{{ $errors->first('note') }}</span>
         </div>
@@ -51,7 +51,7 @@
           <!--begin::Col-->
           <select name="ticket_type_id" class="form-select" data-control="select2" data-placeholder="Select an option">
             @foreach ($ticket_types as $ticket_type)
-            <option value="{{ $ticket_type->id }}">{{ $ticket_type->name }}</option>
+            <option value="{{ $ticket_type->id }}" {{ $ticket_type->id == $ticket->ticket_type_id ? 'selected' : '' }}>{{ $ticket_type->name }}</option>
             @endforeach
           </select>
           <span class="text-danger">{{ $errors->first('ticket_type_id') }}</span>

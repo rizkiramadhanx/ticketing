@@ -935,11 +935,11 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                       <!--begin:Menu link-->
-                      <a class="menu-link">
+                      <a class="menu-link" href="{{ route('ticket.index') }}">
                         <span class="menu-bullet">
                           <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">Tipe Tiket</span>
+                        <span class="menu-title">Tiket</span>
                       </a>
                       <!--end:Menu link-->
                     </div>

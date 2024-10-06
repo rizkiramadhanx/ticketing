@@ -65,7 +65,11 @@ class TicketController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $ticket = Ticket::find($id);
+        $ticket_types = Ticket_Type::all();
+
+
+        return view('dashboard/ticket/edit')->with('ticket', $ticket)->with('ticket_types', $ticket_types);
     }
 
     /**
@@ -73,7 +77,24 @@ class TicketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'note' => 'required',
+            'ticket_type_id' => 'required',
+            'address' => 'required',
+        ]);
+
+        $ticket = Ticket::find($id);
+
+        if ($ticket) {
+            $ticket->update([
+                'name' => $request->name,
+                'note' => $request->note,
+                'ticket_type_id' => $request->ticket_type_id,
+                'address' => $request->address,
+            ]);
+            return redirect()->route('ticket.index')->with('success', 'Ticket updated successfully');
+        }
     }
 
     /**
@@ -81,6 +102,11 @@ class TicketController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $ticket = Ticket::find($id);
+
+        if ($ticket) {
+            $ticket->delete();
+            return redirect()->route('ticket.index')->with('success', 'Ticket deleted successfully');
+        }
     }
 }
