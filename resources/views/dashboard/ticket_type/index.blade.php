@@ -1,6 +1,20 @@
 <x-layout>
   <div>
-    <h1 class="text-3xl font-bold">Dashboard</h1>
+    <h1 class="text-3xl font-bold" style="font-size: large;">Tipe Tiket Master</h1>
+
+    <div class="mt-6">
+      @if (session('success'))
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
+      @endif
+      @if (session('error'))
+      <div class="alert alert-danger">
+        {{ session('error') }}
+      </div>
+      @endif
+    </div>
+
     <div class="mt-6 col-xl-12">
       <div class="card card-flush h-xl-100">
         <!--begin::Card header-->
@@ -8,52 +22,35 @@
           <!--begin::Title-->
           <h3 class="card-title align-items-start flex-column">
             <span class="card-label fw-bold text-dark">Data Tiket</span>
-            <span class="text-gray-400 mt-1 fw-semibold fs-6">Total {{ $tickets->count() }} Items</span>
+            <span class="text-gray-400 mt-1 fw-semibold fs-6">Total {{ $ticket_types->count() }} Items</span>
           </h3>
           <!--end::Title-->
           <!--begin::Actions-->
         </div>
-
-
         <div class="d-flex justify-content-start mt-6 mx-6">
-          <a href="{{ route('ticket.create') }}" class="text-white">
+          <a href="{{ route('ticket_type.create') }}" class="text-white">
             <button class="btn btn-primary">
               Add
             </button>
           </a>
         </div>
-        <div class="card-body table-responsive">
+
+        <div class="card-body ">
           <table class="table align-middle  table-row-dashed fs-6 gy-3">
             <thead>
               <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                 <th class="text-start pe-3 min-w-100px">No</th>
-                <th class="text-start pe-3 min-w-150px">Date</th>
                 <th class="text-start pe-3 min-w-150px">Name</th>
-                <th class="text-start pe-3 min-w-150px">Adress</th>
-                <th class="text-start pe-3 min-w-150px">Note</th>
-                <th class="text-start pe-3 min-w-150px">Division</th>
-                <th class="text-start pe-3 min-w-150px">Keperluan</th>
-                <th class="text-start pe-3 min-w-150px">Status</th>
-                <th class="text-start pe-3 min-w-150px">Actions</th>
+                <th class="text-start pe-3 min-w-150px">Action</th>
               </tr>
             </thead>
-            <tbody class="fw-bold text-gray-600">
-              @foreach ($tickets as $ticket)
+            <tbody class="fw-semibold text-gray-600">
+              @foreach ($ticket_types as $ticket_type)
               <tr>
-                <td>{{ $loop->iteration + 1 }}</td>
-                <td>{{ Carbon\Carbon::parse($ticket->date)->format('d M Y')  }}</td>
-                <td>{{ $ticket->name }}</td>
-                <td>{{ $ticket->address }}</td>
-                <td>{{ $ticket->note }}</td>
-                <td>{{ $ticket->division->name }}</td>
-                <td>{{ $ticket->ticket_type->name }}</td>
-                <td> 
-                  @if ($ticket->status == 'active')
-                  <span class="badge badge-light-success">{{ $ticket->status }}</span>
-                  @endif
-                </td>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $ticket_type->name }}</td>
                 <td>
-                  <a href="{{ route('ticket.edit', $ticket->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                  <a href="{{ route('ticket_type.edit', $ticket_type->id) }}" class="btn btn-sm btn-primary">Edit</a>
                   <button type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users" class="btn btn-sm btn-danger btn-active-danger-primary">Delete</button>
                   <div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
                     <!--begin::Modal dialog-->
@@ -75,7 +72,7 @@
                           <div class="d-flex flex-center gap-3">
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                             <!-- button confirm -->
-                            <form action="{{ route('ticket.destroy', $ticket->id) }}" method="POST">
+                            <form action="{{ route('ticket_type.destroy', $ticket_type->id) }}" method="POST">
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="btn btn-danger">Delete</button>
@@ -93,8 +90,6 @@
                 </td>
               </tr>
               @endforeach
-            </tbody>
-          </table>
         </div>
       </div>
     </div>

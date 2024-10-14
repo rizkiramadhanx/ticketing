@@ -22,6 +22,9 @@ return new class extends Migration
             $table->unsignedBigInteger('ticket_type_id');
             $table->foreign('ticket_type_id')->references('id')->on('ticket_types');
 
+            $table->unsignedBigInteger('division_id');
+            $table->foreign('division_id')->references('id')->on('divisions');
+
         });
     }
 

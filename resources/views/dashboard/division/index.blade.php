@@ -1,59 +1,69 @@
 <x-layout>
   <div>
-    <h1 class="text-3xl font-bold">Dashboard</h1>
-    <div class="mt-6 col-xl-12">
+    <div class="row justify-content-center">
+      <div class="col d-flex justify-content-start">
+        <h1 style="font-size: 24px;font-weight: 600;">Master Bidang</h1>
+      </div>
+    </div>
+    <div class="mt-6">
+      @if (session('success'))
+      <div class="alert alert-success">
+        {{ session('success') }}
+      </div>
+      @endif
+      @if (session('error'))
+      <div class="alert alert-danger">
+        {{ session('error') }}
+      </div>
+      @endif
+      @if (session('warning'))
+      <div class="alert alert-warning">
+        {{ session('warning') }}
+      </div>
+      @endif
+    </div>
+    <div class="mt-6">
       <div class="card card-flush h-xl-100">
         <!--begin::Card header-->
         <div class="card-header pt-7">
           <!--begin::Title-->
           <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold text-dark">Data Tiket</span>
-            <span class="text-gray-400 mt-1 fw-semibold fs-6">Total {{ $tickets->count() }} Items</span>
+            <span class="card-label fw-bold text-dark">Data Ticket</span>
+            <span class="text-gray-400 mt-1 fw-semibold fs-6">Total {{ $divisions->count() }} Items</span>
           </h3>
           <!--end::Title-->
-          <!--begin::Actions-->
         </div>
-
-
+        <!--begin::Actions-->
         <div class="d-flex justify-content-start mt-6 mx-6">
-          <a href="{{ route('ticket.create') }}" class="text-white">
+          <a href="{{ route('division.create') }}" class="text-white">
             <button class="btn btn-primary">
               Add
             </button>
           </a>
         </div>
-        <div class="card-body table-responsive">
+
+
+        <!--end::Card header-->
+        <div class="card-body">
           <table class="table align-middle  table-row-dashed fs-6 gy-3">
             <thead>
               <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                 <th class="text-start pe-3 min-w-100px">No</th>
-                <th class="text-start pe-3 min-w-150px">Date</th>
                 <th class="text-start pe-3 min-w-150px">Name</th>
-                <th class="text-start pe-3 min-w-150px">Adress</th>
-                <th class="text-start pe-3 min-w-150px">Note</th>
-                <th class="text-start pe-3 min-w-150px">Division</th>
-                <th class="text-start pe-3 min-w-150px">Keperluan</th>
-                <th class="text-start pe-3 min-w-150px">Status</th>
-                <th class="text-start pe-3 min-w-150px">Actions</th>
+                <th class="text-start pe-3 min-w-150px">Action</th>
               </tr>
             </thead>
             <tbody class="fw-bold text-gray-600">
-              @foreach ($tickets as $ticket)
+              @foreach ($divisions as $division)
               <tr>
-                <td>{{ $loop->iteration + 1 }}</td>
-                <td>{{ Carbon\Carbon::parse($ticket->date)->format('d M Y')  }}</td>
-                <td>{{ $ticket->name }}</td>
-                <td>{{ $ticket->address }}</td>
-                <td>{{ $ticket->note }}</td>
-                <td>{{ $ticket->division->name }}</td>
-                <td>{{ $ticket->ticket_type->name }}</td>
-                <td> 
-                  @if ($ticket->status == 'active')
-                  <span class="badge badge-light-success">{{ $ticket->status }}</span>
-                  @endif
+                <td>
+                  {{ $loop->iteration }}
                 </td>
                 <td>
-                  <a href="{{ route('ticket.edit', $ticket->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                  {{ $division->name }}
+                </td>
+                <td>
+                  <a href="{{ route('division.edit', $division->id) }}" class="btn btn-sm btn-primary">Edit</a>
                   <button type="button" data-bs-toggle="modal" data-bs-target="#kt_modal_view_users" class="btn btn-sm btn-danger btn-active-danger-primary">Delete</button>
                   <div class="modal fade" id="kt_modal_view_users" tabindex="-1" aria-hidden="true">
                     <!--begin::Modal dialog-->
@@ -75,7 +85,7 @@
                           <div class="d-flex flex-center gap-3">
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
                             <!-- button confirm -->
-                            <form action="{{ route('ticket.destroy', $ticket->id) }}" method="POST">
+                            <form action="{{ route('division.destroy', $division->id) }}" method="POST">
                               @csrf
                               @method('DELETE')
                               <button type="submit" class="btn btn-danger">Delete</button>
@@ -93,9 +103,11 @@
                 </td>
               </tr>
               @endforeach
-            </tbody>
           </table>
         </div>
       </div>
     </div>
+
+
+  </div>
 </x-layout>

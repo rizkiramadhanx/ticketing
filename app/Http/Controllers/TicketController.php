@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Division;
 use App\Models\Ticket;
 use App\Models\Ticket_Type;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::with('ticket_type', 'division')->get();
 
         return view('dashboard/ticket/index')->with('tickets', $tickets);
     }
@@ -24,8 +25,9 @@ class TicketController extends Controller
     public function create()
     {
         $ticket_types = Ticket_Type::all();
+        $divisions = Division::all();
 
-        return view('dashboard/ticket/create')->with('ticket_types', $ticket_types);
+        return view('dashboard/ticket/create')->with('ticket_types', $ticket_types)->with('divisions', $divisions);
     }
 
     /**
@@ -37,12 +39,14 @@ class TicketController extends Controller
             'name' => 'required',
             'note' => 'required',
             'ticket_type_id' => 'required',
+            'division_id' => 'required',
             'address' => 'required',
         ]);
 
         $ticket = Ticket::create([
             'name' => $request->name,
             'note' => $request->note,
+            'division_id' => $request->division_id,
             'ticket_type_id' => $request->ticket_type_id,
             'address' => $request->address,
         ]);
@@ -67,9 +71,10 @@ class TicketController extends Controller
     {
         $ticket = Ticket::find($id);
         $ticket_types = Ticket_Type::all();
+        $divisions = Division::all();
 
 
-        return view('dashboard/ticket/edit')->with('ticket', $ticket)->with('ticket_types', $ticket_types);
+        return view('dashboard/ticket/edit')->with('ticket', $ticket)->with('ticket_types', $ticket_types)->with('divisions', $divisions);
     }
 
     /**
@@ -81,6 +86,8 @@ class TicketController extends Controller
             'name' => 'required',
             'note' => 'required',
             'ticket_type_id' => 'required',
+            'division_id' => 'required',
+
             'address' => 'required',
         ]);
 
@@ -92,6 +99,7 @@ class TicketController extends Controller
                 'note' => $request->note,
                 'ticket_type_id' => $request->ticket_type_id,
                 'address' => $request->address,
+                'division_id' => $request->division_id,
             ]);
             return redirect()->route('ticket.index')->with('success', 'Ticket updated successfully');
         }

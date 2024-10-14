@@ -43,7 +43,7 @@ class AuthController extends Controller
     {
         auth()->guard('web')->logout();
 
-        redirect()->route('login');
+        return redirect()->route('login');
     }
 
     public function dashboard()

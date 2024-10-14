@@ -841,7 +841,7 @@
   </style>
 </head>
 
-<body id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true" data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-header="true" data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" class="app-default">
+<body>
   <!--begin::Theme mode setup on page load-->
   <script>
     var defaultThemeMode = "light";
@@ -864,277 +864,87 @@
   </script>
   <!--end::Theme mode setup on page load-->
   <!--begin::App-->
-  <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
-    <!--begin::Page-->
-    <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
-      <!--begin::Header-->
-      <div id="kt_app_header" class="app-header">
-        <!--begin::Header container-->
-        <div class="app-container container-fluid d-flex align-items-stretch flex-stack" id="kt_app_header_container">
-          <!--begin::Sidebar toggle-->
-          <div class="d-flex align-items-center d-block d-lg-none ms-n3" title="Show sidebar menu">
-            <div class="btn btn-icon btn-active-color-primary w-35px h-35px me-2" id="kt_app_sidebar_mobile_toggle">
-              <i class="ki-outline ki-abstract-14 fs-2"></i>
-            </div>
-            <!--begin::Logo image-->
-            <a href="../../demo42/dist/index.html">
-              <img alt="Logo" src="/assets/media/logos/demo42-small.svg" class="h-30px" />
-            </a>
-            <!--end::Logo image-->
-          </div>
-          <!--end::Sidebar toggle-->
-          <!--begin::Toolbar wrapper-->
+  <div class="d-flex flex-column flex-root">
 
-          <!--end::Navbar-->
+    <div class="d-flex justify-content-center mb-3">
+      <form
+        style="width: 90%"
+        action="{{ route('create_ticket.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+
+        <div class="d-flex justify-content-center my-3">
+          <h1 class="text-3xl font-bold" style="font-size: large;">Buat Keperluan</h1>
         </div>
-        <!--end::Header container-->
-      </div>
-      <!--end::Header-->
-      <!--begin::Wrapper-->
-      <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-        <!--begin::Sidebar-->
-        <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
-          <div class="app-sidebar-logo flex-shrink-0 d-none d-md-flex align-items-center px-8" id="kt_app_sidebar_logo">
-            <!--begin::Logo-->
-            <a href="../../demo42/dist/index.html">
-              <img alt="Logo" src="https://preview.keenthemes.com/html/metronic/docs//assets/media/logos/metronic.svg" class="h-25px d-none d-sm-inline app-sidebar-logo-default theme-light-show" />
-              <img alt="Logo" src="/assets/media/logos/demo42-dark.svg" class="h-25px h-lg-25px theme-dark-show" />
-            </a>
-            <!--end::Logo-->
-            <!--begin::Aside toggle-->
-            <div class="d-flex align-items-center d-lg-none ms-n3 me-1" title="Show aside menu">
-              <div class="btn btn-icon btn-active-color-primary w-30px h-30px" id="kt_aside_mobile_toggle">
-                <i class="ki-outline ki-abstract-14 fs-1"></i>
-              </div>
+        <div class="row">
+          <div class="col-12 row col-md-6">
+            <label class="col-12 col-form-label fw-semibold">Nama</label>
+            <!--begin::Col-->
+            <div class="col-12 fv-row">
+              <input type="text" name="name" class="form-control form-control-lg" value="{{ old('name') }}" />
             </div>
-            <!--end::Aside toggle-->
+            <span class="text-danger">{{ $errors->first('name') }}</span>
           </div>
-          <!--begin::sidebar menu-->
-          <div class="app-sidebar-menu overflow-hidden flex-column-fluid">
-            <!--begin::Menu wrapper-->
-            <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold px-1" id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false">
-              <div id="kt_app_sidebar_menu_wrapper" class="app-sidebar-wrapper hover-scroll-overlay-y my-5 mx-3" data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer" data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px">
-                <a href="{{ route('user.home') }}" class="menu-item">
-                  <span class="menu-link">
-                    <span class="menu-icon">
-                      <i class="ki-outline ki-element-11 fs-2"></i>
-                    </span>
-                    <span class="menu-title">Dashboard</span>
-                  </span>
-                </a>
-                <!--begin::Menu-->
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                  <span class="menu-link">
-                    <span class="menu-icon">
-                      <i class="ki-outline ki-element-11 fs-2"></i>
-                    </span>
-                    <span class="menu-title">Menu</span>
-                    <span class="menu-arrow"></span>
-                  </span>
-                  <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                      <!--begin:Menu link-->
-                      <a class="menu-link" href="{{ route('ticket.index') }}">
-                        <span class="menu-bullet">
-                          <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">Tiket</span>
-                      </a>
-                      <!--end:Menu link-->
-                    </div>
-                  </div>
-                  <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                      <!--begin:Menu link-->
-                      <a class="menu-link" href="{{ route('ticket_type.index') }}">
-                        <span class="menu-bullet">
-                          <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title">Tipe Tiket</span>
-                      </a>
-                      <!--end:Menu link-->
-                    </div>
-                  </div>
-                  <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                      <!--begin:Menu link-->
-                      <a class="menu-link" href="{{ route('division.index') }}">
-                        <span class="menu-bullet">
-                          <span class="bullet bullet-dot"></span>
-                        </span>
-                        <span class="menu-title"> Bidang</span>
-                      </a>
-                      <!--end:Menu link-->
-                    </div>
-                  </div>
-                </div>
-
-                <!--end::Menu-->
-              </div>
+          <div class="col-12 row col-md-6">
+            <label class="col-12 col-form-label fw-semibold">Alamat</label>
+            <!--begin::Col-->
+            <div class="col-12 fv-row">
+              <input type="text" name="address" class="form-control form-control-lg" value="{{ old('address') }}" />
             </div>
-
-            <!--end::Menu wrapper-->
+            <span class="text-danger">{{ $errors->first('address') }}</span>
           </div>
-          <!--end::sidebar menu-->
-          <!--begin::Footer-->
-          <div class="app-sidebar-footer d-flex align-items-center px-8 pb-10" id="kt_app_sidebar_footer">
-            <!--begin::User-->
-            <div class="">
-              <!--begin::User info-->
-              <div class="d-flex align-items-center" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-overflow="true" data-kt-menu-placement="top-start">
-                <div class="d-flex flex-center cursor-pointer symbol symbol-circle symbol-40px">
-                  <img src="/assets/media/avatars/300-1.jpg" alt="image" />
-                </div>
-                <!--begin::Name-->
-                <div class="d-flex flex-column align-items-start justify-content-center ms-3">
-                  <span class="text-gray-500 fs-8 fw-semibold">Hello</span>
-                  <a href="#" class="text-gray-800 fs-7 fw-bold text-hover-primary">{{ Auth::user()->name }}</a>
-                </div>
-                <!--end::Name-->
-              </div>
-              <!--end::User info-->
-              <!--begin::User account menu-->
-              <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
-                <!--begin::Menu item-->
-                <div class="menu-item px-3">
-                  <div class="menu-content d-flex align-items-center px-3">
-                    <!--begin::Avatar-->
-                    <div class="symbol symbol-50px me-5">
-                      <img alt="Logo" src="/assets/media/avatars/300-1.jpg" />
-                    </div>
-                    <!--end::Avatar-->
-                    <!--begin::Username-->
-                    <div class="d-flex flex-column">
-                      <div class="fw-bold d-flex align-items-center fs-5">
-                        {{ Auth::user()->name }}
-                      </div>
-                      <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">{{ Auth::user()->email }}</a>
-                    </div>
-                    <!--end::Username-->
-                  </div>
-                </div>
-                <!--end::Menu item-->
-                <!--begin::Menu separator-->
-                <div class="separator my-2"></div>
-                <!--end::Menu separator-->
-                <!--begin::Menu item-->
-
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-
-                <!--end::Menu item-->
-                <!--begin::Menu separator-->
-                <div class="separator my-2"></div>
-                <!--end::Menu separator-->
-                <!--begin::Menu item-->
-                <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start" data-kt-menu-offset="-15px, 0">
-                  <a href="#" class="menu-link px-5">
-                    <span class="menu-title position-relative">Mode
-                      <span class="ms-5 position-absolute translate-middle-y top-50 end-0">
-                        <i class="ki-outline ki-night-day theme-light-show fs-2"></i>
-                        <i class="ki-outline ki-moon theme-dark-show fs-2"></i>
-                      </span></span>
-                  </a>
-                  <!--begin::Menu-->
-                  <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-title-gray-700 menu-icon-gray-500 menu-active-bg menu-state-color fw-semibold py-4 fs-base w-150px" data-kt-menu="true" data-kt-element="theme-mode-menu">
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3 my-0">
-                      <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="light">
-                        <span class="menu-icon" data-kt-element="icon">
-                          <i class="ki-outline ki-night-day fs-2"></i>
-                        </span>
-                        <span class="menu-title">Light</span>
-                      </a>
-                    </div>
-                    <!--end::Menu item-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3 my-0">
-                      <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="dark">
-                        <span class="menu-icon" data-kt-element="icon">
-                          <i class="ki-outline ki-moon fs-2"></i>
-                        </span>
-                        <span class="menu-title">Dark</span>
-                      </a>
-                    </div>
-                    <!--end::Menu item-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3 my-0">
-                      <a href="#" class="menu-link px-3 py-2" data-kt-element="mode" data-kt-value="system">
-                        <span class="menu-icon" data-kt-element="icon">
-                          <i class="ki-outline ki-screen fs-2"></i>
-                        </span>
-                        <span class="menu-title">System</span>
-                      </a>
-                    </div>
-                    <!--end::Menu item-->
-                  </div>
-                  <!--end::Menu-->
-                </div>
-                <div class="menu-item px-5">
-                  <a href="{{ route('logout') }}" class="menu-link px-5">Logout</a>
-                </div>
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-
-                <!--end::Menu item-->
-                <!--begin::Menu item-->
-
-                <!--end::Menu item-->
-              </div>
-              <!--end::User account menu-->
-            </div>
-            <!--end::User-->
-          </div>
-          <!--end::Footer-->
         </div>
-        <!--end::Sidebar-->
-        <!--begin::Main-->
-        <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-          <!--begin::Content wrapper-->
-          <div class="d-flex flex-column flex-column-fluid">
-            <!--begin::Content-->
-            <div id="kt_app_content" class="app-content flex-column-fluid">
-              <!--begin::Content container-->
-              <div id="kt_app_content_container" class="app-container container-xxl">
-                {{ $slot }}
-              </div>
-              <!--end::Content container-->
-            </div>
-            <!--end::Content-->
-          </div>
-          <!--end::Content wrapper-->
-          <!--begin::Footer-->
 
-          <!--end::Footer-->
+        <div class="row">
+          <div class="col-12 row col-md-6">
+            <label class="col-12 col-form-label fw-semibold">Bidang</label>
+            <!--begin::Col-->
+            <select name="division_id" class="form-select" data-control="select2" data-placeholder="Select an option">
+              @foreach ($divisions as $division)
+              <option value="{{ $division->id }}">{{ $division->name }}</option>
+              @endforeach
+            </select>
+            <span class="text-danger">{{ $errors->first('division_id') }}</span>
+          </div>
+          <div class="col-12 row col-md-6">
+            <label class="col-12 col-form-label fw-semibold">Keperluan</label>
+            <!--begin::Col-->
+            <select name="ticket_type_id" class="form-select" data-control="select2" data-placeholder="Select an option">
+              @foreach ($ticket_types as $ticket_type)
+              <option value="{{ $ticket_type->id }}">{{ $ticket_type->name }}</option>
+              @endforeach
+            </select>
+            <span class="text-danger">{{ $errors->first('ticket_type_id') }}</span>
+          </div>
         </div>
-        <!--end:::Main-->
-      </div>
-      <!--end::Wrapper-->
+        <div class="row">
+          <div class="col-12 row col-md-6">
+            <label class="col-12 col-form-label fw-semibold">Catatan</label>
+            <!--begin::Col-->
+            <div class="col-12 fv-row">
+              <input type="text" name="note" class="form-control form-control-lg" value="{{ old('note') }}" />
+            </div>
+            <span class="text-danger">{{ $errors->first('note') }}</span>
+          </div>
+        </div>
+        <div class="my-6">
+          @if (session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+          @endif
+          @if (session('error'))
+          <div class="alert alert-danger">
+            {{ session('error') }}
+          </div>
+          @endif
+        </div>
+        <div class="mt-5">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
     </div>
-    <!--end::Page-->
   </div>
 
-  <!--begin::Scrolltop-->
-  <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
-    <i class="ki-outline ki-arrow-up"></i>
-  </div>
-  <!--end::Scrolltop-->
-  <!--begin::Modals-->
-
-
-  <!--begin::Javascript-->
   <script>
     var hostUrl = "/assets/";
   </script>
